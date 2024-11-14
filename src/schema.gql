@@ -1,0 +1,91 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Comment {
+  _id: String!
+  content: String!
+  user: User!
+  post: Post!
+}
+
+type Post {
+  _id: String!
+  content: String!
+  user: User!
+  comments: [Comment!]!
+  totalComments: Int
+}
+
+type GetPostPaginatedResponse {
+  results: [Post!]!
+  totalItems: Int!
+  pageSize: Int!
+  currentPage: Int!
+  previous: Int!
+  next: Int!
+}
+
+type User {
+  _id: String!
+  username: String!
+  email: String!
+  password: String!
+  name: String!
+  posts: [Post!]!
+  comments: [Comment!]!
+}
+
+type LoginResponseDto {
+  user: User!
+  authToken: String!
+}
+
+type Query {
+  getHello: String!
+  posts(limit: Int!, page: Int!): GetPostPaginatedResponse!
+  post(id: String!): Post!
+}
+
+type Mutation {
+  createPost(createPostInput: CreatePostInput!): Post!
+  updatePost(updatePostInput: UpdatePostInput!): Post!
+  removePost(id: String!): Post!
+  createComment(createCommentInput: CreateCommentInput!): Comment!
+  updateComment(updateCommentInput: UpdateCommentInput!): Comment!
+  removeComment(id: String!): Comment!
+  login(loginUserInput: LoginUserDto!): LoginResponseDto!
+  signup(signupInput: CreateUserDto!): User!
+}
+
+input CreatePostInput {
+  content: String!
+}
+
+input UpdatePostInput {
+  content: String
+  _id: String!
+}
+
+input CreateCommentInput {
+  content: String!
+  post: String!
+}
+
+input UpdateCommentInput {
+  content: String
+  post: String
+  _id: String!
+}
+
+input LoginUserDto {
+  username: String!
+  password: String!
+}
+
+input CreateUserDto {
+  username: String!
+  email: String!
+  password: String!
+  name: String!
+}
